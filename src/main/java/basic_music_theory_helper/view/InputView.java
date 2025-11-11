@@ -14,4 +14,10 @@ public class InputView {
         String inputFunctionNum = scanner.nextLine();
         return inputFunctionNum;
     }
+
+    public String enterPitchNames() {
+        System.out.println(PROMPT_INTERVAL_CALCULATOR);
+        String inputPitchNames = scanner.nextLine();
+        return inputPitchNames;
+    }
 }

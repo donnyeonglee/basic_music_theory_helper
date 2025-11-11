@@ -1,22 +1,36 @@
 package basic_music_theory_helper.view;
 
+import basic_music_theory_helper.model.IntervalCalculator;
+
+import java.util.List;
+
 public class InputValidator {
     static final int  MIN_FUNCTION_NUM = 0;
     static final int MAX_FUNCTION_NUM = 2;
 
     InputView inputView = new InputView();
-    String inputFunctionNum = inputView.chooseFunction();
 
     public int validatedFunctionNum() {
         int functionNum = -1;
         while (true) {
+            String inputFunctionNum = inputView.chooseFunction();
             try {
                 functionNum = StringToInteger(inputFunctionNum.trim());
                 validateRange(functionNum, MIN_FUNCTION_NUM, MAX_FUNCTION_NUM);
                 return functionNum;
             } catch (Exception e) {
                 System.out.println(e.getMessage());
-                inputFunctionNum = inputView.chooseFunction();
+            }
+        }
+    }
+
+    public String validatedPitchNames() {
+        while (true) {
+            try {
+                IntervalCalculator intervalCalculator = new IntervalCalculator(inputView.enterPitchNames());
+                return intervalCalculator.getInputPitchNames();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
             }
         }
     }

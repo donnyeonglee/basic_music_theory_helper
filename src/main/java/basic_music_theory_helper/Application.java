@@ -1,14 +1,16 @@
 package basic_music_theory_helper;
 
-//import basic_music_theory_helper.view.InputView;
+import basic_music_theory_helper.controller.MainController;
 import basic_music_theory_helper.view.InputValidator;
+import basic_music_theory_helper.view.InputView;
 
 public class Application {
     public static void main(String[] args) {
 
-        InputValidator inputValidator = new InputValidator();
+        InputView inputView = new InputView();
 
-        int functionNum = inputValidator.validatedFunctionNum();
-        System.out.println("입력한 기능 번호 : " + functionNum); // 테스트 출력
+        MainController mainController = new MainController(inputView);
+
+
     }
 }
