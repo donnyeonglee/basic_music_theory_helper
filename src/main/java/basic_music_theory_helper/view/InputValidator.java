@@ -24,11 +24,12 @@ public class InputValidator {
         }
     }
 
-    public String validatedPitchNames() {
+    public List<String> validatedPitchNames() {
         while (true) {
             try {
-                IntervalCalculator intervalCalculator = new IntervalCalculator(inputView.enterPitchNames());
-                return intervalCalculator.getInputPitchNames();
+                IntervalCalculator intervalCalculator = new IntervalCalculator();
+                intervalCalculator.validatePitchNames(inputView.enterPitchNames());
+                return intervalCalculator.getPitchNames();
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }

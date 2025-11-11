@@ -17,13 +17,11 @@ public class MainController {
             System.out.println("0 입력. 도움말 출력"); // 테스트 출력. 도움말 넣기.
         }
         if (functionNum == 1) {
-            System.out.println("1 입력. 음정 계산기 실행"); // 테스트 출력.
-            IntervalCalculator intervalCalculator = new IntervalCalculator(inputValidator.validatedPitchNames());
-            System.out.println(intervalCalculator.getPitchNames()); // 테스트 출력.
+            IntervalCalculator intervalCalculator = new IntervalCalculator();
+            intervalCalculator.calculate(inputValidator.validatedPitchNames());
         }
         if (functionNum == 2) {
             System.out.println("2 입력. 코드 구성음 찾기 실행"); // 테스트 출력.
         }
-
     }
 }
