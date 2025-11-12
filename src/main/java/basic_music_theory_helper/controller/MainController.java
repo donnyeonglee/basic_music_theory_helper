@@ -25,11 +25,13 @@ public class MainController {
         }
         if (functionNum == 1) {
             IntervalCalculator intervalCalculator = new IntervalCalculator();
-            intervalCalculator.calculate(inputValidator.validatedPitchNames());
+            String interval = intervalCalculator.calculate(inputValidator.validatedPitchNames());
+            outputView.intervalCalculatorResult(interval);
         }
         if (functionNum == 2) {
-            //ChordTonesFinder chordTonesFinder = new ChordTonesFinder();
-            inputValidator.validatedChordName();
+            ChordTonesFinder chordTonesFinder = new ChordTonesFinder();
+            String chordTones = chordTonesFinder.findChordTonesFromName(inputValidator.validatedChordName());
+            System.out.println(chordTones);
         }
     }
 }

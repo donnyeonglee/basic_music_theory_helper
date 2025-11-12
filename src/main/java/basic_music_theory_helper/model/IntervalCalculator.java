@@ -24,7 +24,7 @@ public class IntervalCalculator {
         }
     }
 
-    public void calculate(List<String> inputPitchNames) {
+    public String calculate(List<String> inputPitchNames) {
         String firstNote = inputPitchNames.get(0).trim();
         String secondNote = inputPitchNames.get(1).trim();
         int degree = findHeptatonicPosition(secondNote) - findHeptatonicPosition(firstNote) + 1;
@@ -36,8 +36,7 @@ public class IntervalCalculator {
             halfToneDistance += HALF_TONE_COUNT;
         }
         //System.out.println(firstNote + "와 " + secondNote + "사이의 거리는 " + degree + "도, 반음거리는 " + halfToneDistance); // 테스트 출력
-        String interval = findInterval(degree, halfToneDistance);
-        outputView.intervalCalculatorResult(interval);
+        return findInterval(degree, halfToneDistance);
     }
 
     private void validateSinglePitchName(String pitchName) {
