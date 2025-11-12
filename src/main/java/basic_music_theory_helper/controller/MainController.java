@@ -28,7 +28,7 @@ public class MainController {
             intervalCalculator.calculate(inputValidator.validatedPitchNames());
         }
         if (functionNum == 2) {
-            ChordTonesFinder chordTonesFinder = new ChordTonesFinder();
+            //ChordTonesFinder chordTonesFinder = new ChordTonesFinder();
             inputValidator.validatedChordName();
         }
     }

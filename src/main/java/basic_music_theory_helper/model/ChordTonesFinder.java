@@ -21,7 +21,17 @@ public class ChordTonesFinder {
     }
 
     public void validateChordName(String inputChordName) {
-        this.chordName = inputChordName;
+        String inputChordSuffix = inputChordName.trim().replaceAll("^[A-G]{1}+[#♭]?", "");
+        System.out.println(inputChordSuffix);  // 테스트 출력
+        Chord[] chords = Chord.values();
+        for (Chord chord : chords) {
+            List<String> suffixList = chord.getSuffixList();
+            if (suffixList.contains(inputChordSuffix)) {
+                System.out.println("올바른 코드 이름입니다."); // 테스트 출력
+                return;
+            }
+        }
+        throw new IllegalArgumentException("[ERROR] 잘못된 코드 이름입니다.");
     }
 
     private String generateChordNames(List<String> suffixList) {

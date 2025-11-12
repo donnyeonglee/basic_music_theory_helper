@@ -16,7 +16,6 @@ public class InputView {
             다음 예시의 형식으로 코드 이름을 입력해주세요.
             예시의 근음은 C 입니다.
             근음은 알파벳(A-G) + 조표(♯ or ♭, 선택 사항) 으로 나타내주세요.""";
-    String chordNameExample;
 
     Scanner scanner = new Scanner(System.in);
 
