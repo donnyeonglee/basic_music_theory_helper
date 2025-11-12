@@ -32,7 +32,7 @@ public class IntervalCalculator {
         if (degree <= 0) {
             degree += HEPTATONIC_COUNT;
         }
-        if (halfToneDistance <= 0) {
+        if (halfToneDistance < 0) {
             halfToneDistance += HALF_TONE_COUNT;
         }
         //System.out.println(firstNote + "와 " + secondNote + "사이의 거리는 " + degree + "도, 반음거리는 " + halfToneDistance); // 테스트 출력
