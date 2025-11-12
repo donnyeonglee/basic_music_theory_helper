@@ -1,5 +1,6 @@
 package basic_music_theory_helper.controller;
 
+import basic_music_theory_helper.model.ChordTonesFinder;
 import basic_music_theory_helper.model.IntervalCalculator;
 import basic_music_theory_helper.view.InputValidator;
 import basic_music_theory_helper.view.InputView;
@@ -27,7 +28,8 @@ public class MainController {
             intervalCalculator.calculate(inputValidator.validatedPitchNames());
         }
         if (functionNum == 2) {
-            System.out.println("2 입력. 코드 구성음 찾기 실행"); // 테스트 출력.
+            ChordTonesFinder chordTonesFinder = new ChordTonesFinder();
+            inputValidator.validatedChordName();
         }
     }
 }
