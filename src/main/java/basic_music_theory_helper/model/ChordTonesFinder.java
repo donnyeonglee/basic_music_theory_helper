@@ -1,5 +1,6 @@
 package basic_music_theory_helper.model;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -41,17 +42,19 @@ public class ChordTonesFinder {
         String suffix = chordName.replaceAll("^[A-G]{1}+[#♭]?", "");
         String root = chordName.replace(suffix, "");
         String halfTones = "-1";
+        List<String> intervalNames = new ArrayList<>();
         Chord[] chords = Chord.values();
         for (Chord chord : chords) {
             if (chord.getSuffixList().contains(suffix)) {
                 halfTones = chord.getHalfTones();
+                intervalNames = chord.getIntervalNames();
                 break;
             }
         }
-        if (halfTones.equals("-1")) {
+        if (halfTones.equals("-1") || intervalNames.isEmpty()) {
             throw new RuntimeException("[ERROR] 반음거리 가져오기 오류");
         }
-        return findChordTonesFromRootAndHalfTones(root, halfTones);
+        return findChordTonesFromRootAndHalfTones(root, halfTones, intervalNames);
     }
 
     private String generateChordNames(List<String> suffixList) {
@@ -62,8 +65,8 @@ public class ChordTonesFinder {
         return chordNames.replaceAll(",$", ""); // 마지막 구분자 제거
     }
 
-    private String findChordTonesFromRootAndHalfTones(String root, String halfTones) {
-        String intervalAndPitches = "";
+    private String findChordTonesFromRootAndHalfTones(String root, String halfTones, List<String> intervalNames) {
+        String chordTones = "";
         int rootPosition = -1;
         Pitch[] pitches = Pitch.values();
         for (Pitch pitch : pitches) {
@@ -80,24 +83,71 @@ public class ChordTonesFinder {
             if (halfTonePosition > 12) {
                 halfTonePosition -= 12;
             }
-            intervalAndPitches += findPitchFromHalfTonePosition(root, halfTonePosition);
+            String intervalName = intervalNames.get(num);
+            if (num == 0) {
+                chordTones = intervalName + " : " + root + "\n";
+            }
+            if (num != 0) {
+                chordTones += intervalName + " : " + findPitchFromHalfTonePosition(root, halfTonePosition, intervalName) + "\n";
+            }
         }
-        return intervalAndPitches;
+        return chordTones;
     }
 
-    private String findPitchFromHalfTonePosition(String root, int halfTonePosition) {
-        String intervalAndPitch = "";
-        IntervalCalculator intervalCalculator = new IntervalCalculator();
+    private String findPitchFromHalfTonePosition(String root, int halfTonePosition, String intervalName) {
+        String chordTone = "";
+        List<String> enharmonicChordTone = new ArrayList<>(); // 이명동음 음이름 리스트
         Pitch[] pitches = Pitch.values();
         for (Pitch pitch : pitches) {
             if (halfTonePosition == pitch.getHalfTonePosition()) {
-                String singleChordTone = pitch.getPitchName();
-                String interval = intervalCalculator.calculate(Arrays.asList(root, singleChordTone)).replace("완전1도", "근음");
-                intervalAndPitch += interval + " : " + singleChordTone + "\n";
-                break;
+                enharmonicChordTone.add(pitch.getPitchName());
             }
         }
-        return intervalAndPitch;
+        // 이명동음 처리. 1순위: 조표가 붙지 않은 음이름. 2순위: 코드 구성음의 음정 이름과 같은 음이름. 3순위: 이외의 경우
+        String natural = getNaturalNote(enharmonicChordTone); // 1순위
+        if (!natural.isEmpty()) {
+            chordTone = natural;
+            return chordTone;
+        }
+        String chordIntervalNote = getChordIntervalNote(root, enharmonicChordTone, intervalName); // 2순위
+        if (!chordIntervalNote.isEmpty()) {
+            chordTone = chordIntervalNote;
+            return chordTone;
+        }
+        chordTone = getAllNotes(enharmonicChordTone); // 3순위
+
+        return chordTone;
+    }
+
+    private String getNaturalNote(List<String> enharmonicChordTone) {
+        String naturalNote = "";
+        for (String note : enharmonicChordTone) {
+            if (note.matches("^[A-G]$")) {
+                naturalNote = note;
+            }
+        }
+        return naturalNote;
+    }
+
+    private String getChordIntervalNote(String root, List<String> enharmonicChordTone, String intervalName) {
+        String intervalNameForEachNote = "";
+        IntervalCalculator intervalCalculator = new IntervalCalculator();
+        for (String note : enharmonicChordTone) {
+            List<String> noteNames = Arrays.asList(root, note);
+            intervalNameForEachNote = intervalCalculator.calculate(noteNames);
+            if (intervalNameForEachNote.equals(intervalName)) {
+                return note;
+            }
+        }
+        return "";
+    }
+
+    private String getAllNotes(List<String> enharmonicChordTone) {
+        String allNotes = "";
+        for (String note : enharmonicChordTone) {
+            allNotes += allNotes + note + "=";
+        }
+        return allNotes.replaceAll("=$", "");
     }
 
     public String getChordName() {
