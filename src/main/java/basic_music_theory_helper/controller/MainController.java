@@ -32,6 +32,9 @@ public class MainController {
             ChordTonesFinder chordTonesFinder = new ChordTonesFinder();
             String chordTones = chordTonesFinder.findChordTonesFromName(inputValidator.validatedChordName());
             System.out.println(chordTones);
+            if (inputValidator.validateWhetherPrintTab().equals("Y")) {
+                System.out.println("타브 출력을 실행합니다."); // 테스트 출력
+            }
         }
     }
 }

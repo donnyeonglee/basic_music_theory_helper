@@ -16,6 +16,7 @@ public class InputView {
             다음 예시의 형식으로 코드 이름을 입력해주세요.
             예시의 근음은 C 입니다.
             근음은 알파벳(A-G) + 조표(♯ or ♭, 선택 사항) 으로 나타내주세요.""";
+    static final String PROMPT_TAB = "기타 타브를 출력하시겠습니까? (Y/N)";
 
     Scanner scanner = new Scanner(System.in);
 
@@ -36,4 +37,8 @@ public class InputView {
         return scanner.nextLine();
     }
 
+    public String enterWhetherPrintTab() {
+        System.out.println(PROMPT_TAB);
+        return scanner.nextLine();
+    }
 }

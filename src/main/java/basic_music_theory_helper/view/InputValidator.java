@@ -3,6 +3,7 @@ package basic_music_theory_helper.view;
 import basic_music_theory_helper.model.ChordTonesFinder;
 import basic_music_theory_helper.model.IntervalCalculator;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class InputValidator {
@@ -49,6 +50,16 @@ public class InputValidator {
         }
     }
 
+    public String validateWhetherPrintTab() {
+        while (true) {
+            try {
+                return checkYesOrNo(inputView.enterWhetherPrintTab());
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
     private int StringToInteger(String inNum) {
         int outNum = -1;
         try {
@@ -63,5 +74,15 @@ public class InputValidator {
         if (num < minNum || num > maxNum) {
             throw new IllegalArgumentException("[ERROR] 범위를 벗어나는 입력입니다.");
         }
+    }
+
+    private String checkYesOrNo(String sign) {
+        if (sign.equals("Y")) {
+            return "Y";
+        }
+        if (sign.equals("N")) {
+            return "N";
+        }
+        throw new IllegalArgumentException("[ERROR] Y 또는 N을 입결해 주세요.");
     }
 }
