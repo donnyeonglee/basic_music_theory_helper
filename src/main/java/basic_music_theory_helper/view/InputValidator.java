@@ -9,6 +9,8 @@ import java.util.List;
 public class InputValidator {
     static final int  MIN_FUNCTION_NUM = 0;
     static final int MAX_FUNCTION_NUM = 2;
+    static final int MIN_TUNING_TYPE_NUM = 1;
+    static final int MAX_TUNING_TYPE_NUM = 4;
 
     InputView inputView = new InputView();
 
@@ -17,7 +19,7 @@ public class InputValidator {
         while (true) {
             String inputFunctionNum = inputView.chooseFunction();
             try {
-                functionNum = StringToInteger(inputFunctionNum.trim());
+                functionNum = stringToInteger(inputFunctionNum.trim());
                 validateRange(functionNum, MIN_FUNCTION_NUM, MAX_FUNCTION_NUM);
                 return functionNum;
             } catch (IllegalArgumentException e) {
@@ -60,7 +62,20 @@ public class InputValidator {
         }
     }
 
-    private int StringToInteger(String inNum) {
+    public int validatedTuningType() {
+        while (true) {
+            String inputTuningTypeNum = inputView.enterTuningType();
+            try {
+                int tuningTypeNum = stringToInteger(inputTuningTypeNum.trim());
+                validateRange(tuningTypeNum, MIN_TUNING_TYPE_NUM, MAX_TUNING_TYPE_NUM);
+                return tuningTypeNum;
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
+    private int stringToInteger(String inNum) {
         int outNum = -1;
         try {
             outNum = Integer.parseInt(inNum);

@@ -1,6 +1,7 @@
 package basic_music_theory_helper.view;
 
 import basic_music_theory_helper.model.ChordTonesFinder;
+import basic_music_theory_helper.model.TabGenerator;
 
 import java.util.Scanner;
 
@@ -16,7 +17,8 @@ public class InputView {
             다음 예시의 형식으로 코드 이름을 입력해주세요.
             예시의 근음은 C 입니다.
             근음은 알파벳(A-G) + 조표(♯ or ♭, 선택 사항) 으로 나타내주세요.""";
-    static final String PROMPT_TAB = "기타 타브를 출력하시겠습니까? (Y/N)";
+    static final String PROMPT_TAB = "타브를 출력하시겠습니까? (Y/N)";
+    static final String PROMPT_TUNING_TYPE = "\n다음 중 튜닝 유형에 해당하는 번호를 입력해주세요.";
 
     Scanner scanner = new Scanner(System.in);
 
@@ -39,6 +41,13 @@ public class InputView {
 
     public String enterWhetherPrintTab() {
         System.out.println(PROMPT_TAB);
+        return scanner.nextLine();
+    }
+
+    public String enterTuningType() {
+        TabGenerator tabGenerator = new TabGenerator();
+        System.out.println(PROMPT_TUNING_TYPE);
+        System.out.println(tabGenerator.showTuningTypes());
         return scanner.nextLine();
     }
 }
