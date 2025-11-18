@@ -2,6 +2,7 @@ package basic_music_theory_helper.controller;
 
 import basic_music_theory_helper.model.ChordTonesFinder;
 import basic_music_theory_helper.model.IntervalCalculator;
+import basic_music_theory_helper.model.TabGenerator;
 import basic_music_theory_helper.view.InputValidator;
 import basic_music_theory_helper.view.InputView;
 import basic_music_theory_helper.view.OutputView;
@@ -30,10 +31,18 @@ public class MainController {
         }
         if (functionNum == 2) {
             ChordTonesFinder chordTonesFinder = new ChordTonesFinder();
-            String chordTones = chordTonesFinder.findChordTonesFromName(inputValidator.validatedChordName());
-            System.out.println(chordTones);
+            List<List<String>> intervalNameAndChordTones = chordTonesFinder.findChordTonesFromName(inputValidator.validatedChordName());
+            outputView.chordTonesFinderResult(intervalNameAndChordTones);
             if (inputValidator.validateWhetherPrintTab().equals("Y")) {
-                System.out.println(inputValidator.validatedTuningType() + "번 선택. 타브 출력을 실행합니다."); // 테스트 출력
+                System.out.println("타브 출력을 실행합니다."); // 테스트 출력
+
+                TabGenerator tabGenerator = new TabGenerator();
+                List<String> chordTones = intervalNameAndChordTones.get(1);
+                int tuningTypeNum = inputValidator.validatedTuningType();
+                List<List<List<Integer>>> chordPositions = tabGenerator.generateTab(chordTones, tuningTypeNum);
+                List<List<String>> chordTonesInOrder = tabGenerator.getChordTonesInTabOrder();
+                System.out.println(chordPositions);
+                System.out.println(chordTonesInOrder);
             }
         }
     }

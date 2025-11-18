@@ -37,7 +37,7 @@ public class ChordTonesFinder {
         throw new IllegalArgumentException("[ERROR] 잘못된 코드 이름입니다.");
     }
 
-    public String findChordTonesFromName(String validatedInputChordName) {
+    public List<List<String>> findChordTonesFromName(String validatedInputChordName) {
         this.chordName = validatedInputChordName;
         String suffix = chordName.replaceAll("^[A-G]{1}+[#♭]?", "");
         String root = chordName.replace(suffix, "");
@@ -65,8 +65,8 @@ public class ChordTonesFinder {
         return chordNames.replaceAll(",$", ""); // 마지막 구분자 제거
     }
 
-    private String findChordTonesFromRootAndHalfTones(String root, String halfTones, List<String> intervalNames) {
-        String chordTones = "";
+    private List<List<String>> findChordTonesFromRootAndHalfTones(String root, String halfTones, List<String> intervalNames) {
+        List<String> chordTones = new ArrayList<>();
         int rootPosition = -1;
         Pitch[] pitches = Pitch.values();
         for (Pitch pitch : pitches) {
@@ -85,13 +85,16 @@ public class ChordTonesFinder {
             }
             String intervalName = intervalNames.get(num);
             if (num == 0) {
-                chordTones = intervalName + " : " + root + "\n";
+                chordTones.add(root);
             }
             if (num != 0) {
-                chordTones += intervalName + " : " + findPitchFromHalfTonePosition(root, halfTonePosition, intervalName) + "\n";
+                chordTones.add(findPitchFromHalfTonePosition(root, halfTonePosition, intervalName));
             }
         }
-        return chordTones;
+        if (intervalNames.size() != chordTones.size()) {
+            throw new RuntimeException("[ERROR] 구성음 탐색 오류");
+        }
+        return Arrays.asList(intervalNames, chordTones);
     }
 
     private String findPitchFromHalfTonePosition(String root, int halfTonePosition, String intervalName) {

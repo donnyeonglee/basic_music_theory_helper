@@ -1,5 +1,7 @@
 package basic_music_theory_helper.view;
 
+import java.util.List;
+
 public class OutputView {
 
     private final String HELP_MESSAGE = " ===== 기초 음악 이론 도우미 (Basic music theory helper) =====\n\n" +
@@ -8,6 +10,7 @@ public class OutputView {
             "코드 구성음 찾기: 코드 이름을 입력하면 코드의 구성음을 출력합니다.\n\n" +
             "개발자: 이돈녕\n\n" +
             "=========================================================\n";
+    private final int STRING_COUNT = 6;
 
     public void helpMessage() {
         System.out.println(HELP_MESSAGE);
@@ -15,5 +18,15 @@ public class OutputView {
 
     public void intervalCalculatorResult (String interval) {
         System.out.println("두 음 사이의 거리는 " + interval + "입니다.");
+    }
+
+    public void chordTonesFinderResult (List<List<String>> intervalNameAndChordTones) {
+        List<String> intervalNames = intervalNameAndChordTones.get(0);
+        List<String> chordTones = intervalNameAndChordTones.get(1);
+        for (int num = 0; num < intervalNames.size(); num++) {
+            String intervalName = intervalNames.get(num);
+            String chordTone = chordTones.get(num);
+            System.out.println(intervalName + " : " + chordTone);
+        }
     }
 }

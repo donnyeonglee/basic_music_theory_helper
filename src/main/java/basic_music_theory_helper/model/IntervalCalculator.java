@@ -61,7 +61,7 @@ public class IntervalCalculator {
         throw new RuntimeException("[ERROR] 도수 계산 오류");
     }
 
-    private int findHalfTonePosition(String note) {
+    public int findHalfTonePosition(String note) {
         Pitch[] pitches = Pitch.values();
         for (Pitch pitch : pitches) {
             if (note.equals(pitch.getPitchName())) {
