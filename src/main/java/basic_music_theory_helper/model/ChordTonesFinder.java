@@ -19,7 +19,7 @@ public class ChordTonesFinder {
             exampleChordNames = exampleChordNames +
                     chord.getChordName() + " :" + generateChordNames(chord.getSuffixList()) + "\n";
         }
-        return exampleChordNames;
+        return exampleChordNames.replaceAll("\n$", "");
     }
 
     public void validateChordName(String inputChordName) {

@@ -8,7 +8,10 @@ public class TabGenerator {
     private final int STRING_COUNT = 6;
     private final int FRET_COUNT = 24;
     private final int SLIDING_WINDOW_SIZE = 5;
+    private final int HIGHEST_ROOT_STRING = 3; // 3번 줄까지 근음 탐색
+    private final int HIGHEST_ROOT_FRET = 12; // 12번 프렛까지 근음 탐색
 
+    List<List<String>> tabList = new ArrayList<>();
     List<List<String>> chordTonesInTabOrder = new ArrayList<>();
 
     public String showTuningTypes() {
@@ -22,34 +25,38 @@ public class TabGenerator {
         return tuningTypes.replaceAll("\n$","");
     }
 
-    public List<List<List<Integer>>> generateTab(List<String> chordTones, int tuningTypeNum) {
+    public List<List<String>> generateTab(List<String> chordTones, int tuningTypeNum) {
         String root = chordTones.getFirst();
         List<String> openStringNotes = getOpenStringNotes(tuningTypeNum);
         List<List<List<String>>> fretBoard = generateFretBoard(openStringNotes);
         List<List<Integer>> rootPositions = findRootPosition(root, fretBoard);
         List<List<List<Integer>>> candidateChordPositions = findChordTonePositions(chordTones, fretBoard, rootPositions);
-        System.out.println("후보 위치 : " + candidateChordPositions); // 테스트 출력
+        //System.out.println("후보 위치 : " + candidateChordPositions); // 테스트 출력
         List<List<List<Integer>>> allCombinations = new ArrayList<>();
         for (List<List<Integer>> singleChordPosition : candidateChordPositions) {
             List<List<List<Integer>>> singleChordPositionCombinations = buildCombinations(singleChordPosition);
-            System.out.println(singleChordPositionCombinations); // 테스트 출력
-            System.out.println(); // 테스트 출력
+            //System.out.println(singleChordPositionCombinations); // 테스트 출력
+            //System.out.println(); // 테스트 출력
             for ( List<List<Integer>> singleCombination : singleChordPositionCombinations) {
                 allCombinations.add(singleCombination);
             }
         }
-        System.out.println(allCombinations); // 테스트 출력
+        //System.out.println(allCombinations); // 테스트 출력
         List<List<List<Integer>>> nonRedundantCombinations = allCombinations.stream().distinct().collect(Collectors.toList()); // 리스트 중복 제거
-        System.out.println("리스트 : " + nonRedundantCombinations); // 테스트 출력
+        //System.out.println("리스트 : " + nonRedundantCombinations); // 테스트 출력
         List<List<List<Integer>>> validatedChordPositions = new ArrayList<>();
         for (List<List<Integer>> nonRedundantCombination : nonRedundantCombinations) {
             if (validateCombination(nonRedundantCombination, chordTones, fretBoard)) {
                 validatedChordPositions.add(nonRedundantCombination);
-                System.out.println("최종코드폼: " + nonRedundantCombination); // 테스트 출력
+                //System.out.println("최종코드폼: " + nonRedundantCombination); // 테스트 출력
             }
         }
         assignChordTonesInTabOrder(validatedChordPositions, fretBoard, chordTones);
-        return validatedChordPositions;
+        tabList = generateTabList(validatedChordPositions, chordTonesInTabOrder);
+        System.out.println("\n" + getTuningType(tuningTypeNum));
+        System.out.println("코드 블록 사이즈 : " + SLIDING_WINDOW_SIZE + "프렛");
+        System.out.println("근음 위치 : " + STRING_COUNT + " ~ " + HIGHEST_ROOT_STRING + " 번 줄, 0 ~ " + HIGHEST_ROOT_FRET + "프렛");
+        return tabList;
     }
 
     private List<String> getOpenStringNotes(int tuningTypeNum) {
@@ -87,8 +94,8 @@ public class TabGenerator {
 
     private List<List<Integer>> findRootPosition(String root, List<List<List<String>>> fretBoard) {
         List<List<Integer>> rootPositions = new ArrayList<>();
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < FRET_COUNT / 2; j ++) { // 근음은 반복되므로 12프렛 이내에서 탐색
+        for (int i = 0; i < STRING_COUNT - HIGHEST_ROOT_STRING + 1; i++) { // 3, 4, 5, 6번 줄에서 근음 탐색
+            for (int j = 0; j < HIGHEST_ROOT_FRET; j ++) { // 근음은 반복되므로 12프렛 이내에서 탐색
                 if (fretBoard.get(i).get(j).contains(root)) {
                     rootPositions.add(Arrays.asList(i,j));
                 }
@@ -116,7 +123,7 @@ public class TabGenerator {
                 for (int k = 0; k < STRING_COUNT; k++) { // 줄 이동
                     for (int j = i; j < i + SLIDING_WINDOW_SIZE; j++) { // sliding window별 탐색
                         for (String chordTone : chordTones) {
-                            if (fretBoard.get(k).get(j).contains(chordTone) && !(k == rootString && j == rootFret)) {
+                            if (fretBoard.get(k).get(j).contains(chordTone) && k != rootString) { // 근음이 지정되어 있는 현은 제외하고 탐색
                                 candidateChordPositionsForSingleWindow.add(Arrays.asList(k, j));
                             }
                         }
@@ -212,12 +219,46 @@ public class TabGenerator {
                     }
                 }
             }
-            System.out.println(singleChordTonesInOrder); // 테스트 출력
+            //System.out.println(singleChordTonesInOrder); // 테스트 출력
             chordTonesInTabOrder.add(singleChordTonesInOrder);
         }
     }
 
-    public List<List<String>> getChordTonesInTabOrder() {
-        return chordTonesInTabOrder;
+    private List<List<String>> generateTabList(List<List<List<Integer>>> chordPositions, List<List<String>> chordTonesInOrder) {
+        int chordFormCount = chordPositions.size();
+        List<List<String>> tabList = new ArrayList<>();
+        for (int i = 0; i < chordFormCount; i ++) {
+            List<List<Integer>> chordPosition = chordPositions.get(i);
+            List<String> chordTone = chordTonesInOrder.get(i);
+            List<String> singleTabList = new ArrayList<>();
+            for (int j = STRING_COUNT - 1; j >= 0; j--) {
+                String note = chordTone.get(j) + " ".repeat(2 - chordTone.get(j).length());
+                String tabPosition = "--";
+                for (List<Integer> position : chordPosition) {
+                    if (position.getFirst() == j) {
+                        tabPosition = position.get(1) + "";
+                        if (tabPosition.length() == 1) {
+                            tabPosition = "-" + tabPosition;
+                        }
+                    }
+                }
+                singleTabList.add(note + "|--" + tabPosition + "---|");
+            }
+            tabList.add(singleTabList);
+        }
+        return tabList;
+    }
+
+    private String getTuningType(int tuningTypeNum) {
+        OpenStrings[] openStrings = OpenStrings.values();
+        String tuningName = "";
+        String tuningForm = "";
+        for (OpenStrings openString : openStrings) {
+            if (openString.getTuningTypeNum() == tuningTypeNum) {
+                tuningName = openString.getTuningName();
+                tuningForm = openString.getTuningForm();
+            }
+        }
+        return ("튜닝 : " + tuningName + " (" + tuningForm + ")");
     }
 }

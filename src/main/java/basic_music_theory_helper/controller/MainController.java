@@ -34,15 +34,12 @@ public class MainController {
             List<List<String>> intervalNameAndChordTones = chordTonesFinder.findChordTonesFromName(inputValidator.validatedChordName());
             outputView.chordTonesFinderResult(intervalNameAndChordTones);
             if (inputValidator.validateWhetherPrintTab().equals("Y")) {
-                System.out.println("타브 출력을 실행합니다."); // 테스트 출력
-
                 TabGenerator tabGenerator = new TabGenerator();
                 List<String> chordTones = intervalNameAndChordTones.get(1);
                 int tuningTypeNum = inputValidator.validatedTuningType();
-                List<List<List<Integer>>> chordPositions = tabGenerator.generateTab(chordTones, tuningTypeNum);
-                List<List<String>> chordTonesInOrder = tabGenerator.getChordTonesInTabOrder();
-                System.out.println(chordPositions);
-                System.out.println(chordTonesInOrder);
+                List<List<String>> tabList = tabGenerator.generateTab(chordTones, tuningTypeNum);
+                // System.out.println(tabList); 테스트 출력
+                outputView.tabGeneratorResult(tabList);
             }
         }
     }
