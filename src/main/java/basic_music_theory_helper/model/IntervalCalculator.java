@@ -73,6 +73,7 @@ public class IntervalCalculator {
 
     private String findInterval(int degree, int halfToneDistance) {
         Interval[] intervals = Interval.values();
+        //System.out.println("degree : " + degree + " halfToneDistance : " + halfToneDistance); // 테스트 출력
         for (Interval interval : intervals) {
             if (degree == interval.getDegree() && halfToneDistance == interval.getHalfToneDistance()) {
                 return interval.getKoreanIntervalName();

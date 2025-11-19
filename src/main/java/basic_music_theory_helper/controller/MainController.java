@@ -12,22 +12,24 @@ import java.util.List;
 public class MainController {
     private final InputView inputView;
     private final OutputView outputView;
+    InputValidator inputValidator = new InputValidator();
 
     public MainController(InputView inputView, OutputView outputView) {
         this.inputView = inputView;
         this.outputView = outputView;
-        InputValidator inputValidator = new InputValidator();
+
         int functionNum = inputValidator.validatedFunctionNum();
+
         if (functionNum == 0) {
-            while (functionNum == 0) {
-                outputView.helpMessage();
-                functionNum = inputValidator.validatedFunctionNum();
-            }
+            functionNum = reEnteredFunctionNum();
         }
         if (functionNum == 1) {
+            runIntervalCalculator();
+            /*
             IntervalCalculator intervalCalculator = new IntervalCalculator();
             String interval = intervalCalculator.calculate(inputValidator.validatedPitchNames());
             outputView.intervalCalculatorResult(interval);
+             */
         }
         if (functionNum == 2) {
             ChordTonesFinder chordTonesFinder = new ChordTonesFinder();
@@ -38,9 +40,23 @@ public class MainController {
                 List<String> chordTones = intervalNameAndChordTones.get(1);
                 int tuningTypeNum = inputValidator.validatedTuningType();
                 List<List<String>> tabList = tabGenerator.generateTab(chordTones, tuningTypeNum);
-                // System.out.println(tabList); 테스트 출력
                 outputView.tabGeneratorResult(tabList);
             }
         }
+    }
+
+    private int reEnteredFunctionNum() {
+        int functionNum = 0;
+        while (functionNum == 0) {
+            outputView.helpMessage();
+            functionNum = inputValidator.validatedFunctionNum();
+        }
+        return functionNum;
+    }
+
+    private void runIntervalCalculator() {
+        IntervalCalculator intervalCalculator = new IntervalCalculator();
+        String interval = intervalCalculator.calculate(inputValidator.validatedPitchNames());
+        outputView.intervalCalculatorResult(interval);
     }
 }

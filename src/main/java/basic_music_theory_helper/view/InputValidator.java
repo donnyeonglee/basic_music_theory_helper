@@ -80,14 +80,14 @@ public class InputValidator {
         try {
             outNum = Integer.parseInt(inNum);
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("[ERROR] 정수를 입력해주세요.");
+            throw new IllegalArgumentException("[ERROR] 정수를 입력해주세요.\n");
         }
         return outNum;
     }
 
     private void validateRange(int num, int minNum, int maxNum) {
         if (num < minNum || num > maxNum) {
-            throw new IllegalArgumentException("[ERROR] 범위를 벗어나는 입력입니다.");
+            throw new IllegalArgumentException("[ERROR] 범위를 벗어나는 입력입니다.\n");
         }
     }
 
@@ -98,6 +98,6 @@ public class InputValidator {
         if (sign.equals("N")) {
             return "N";
         }
-        throw new IllegalArgumentException("[ERROR] Y 또는 N을 입결해 주세요.");
+        throw new IllegalArgumentException("[ERROR] Y 또는 N을 입결해 주세요.\n");
     }
 }
