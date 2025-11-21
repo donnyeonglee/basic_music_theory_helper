@@ -42,13 +42,14 @@ public class MainController {
 
     private void runChordTonesFinder() {
         ChordTonesFinder chordTonesFinder = new ChordTonesFinder();
-        List<List<String>> intervalNameAndChordTones = chordTonesFinder.findChordTonesFromName(inputValidator.validatedChordName());
+        String chordName = inputValidator.validatedChordName();
+        List<List<String>> intervalNameAndChordTones = chordTonesFinder.findChordTonesFromName(chordName);
         outputView.chordTonesFinderResult(intervalNameAndChordTones);
         if (inputValidator.validateWhetherPrintTab().equals("Y")) {
             TabGenerator tabGenerator = new TabGenerator();
             List<String> chordTones = intervalNameAndChordTones.get(1);
             int tuningTypeNum = inputValidator.validatedTuningType();
-            List<List<String>> tabList = tabGenerator.generateTab(chordTones, tuningTypeNum);
+            List<List<String>> tabList = tabGenerator.generateTab(chordName, chordTones, tuningTypeNum);
             outputView.tabGeneratorResult(tabList);
             return;
         }

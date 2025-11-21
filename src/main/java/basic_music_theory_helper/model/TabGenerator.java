@@ -27,7 +27,7 @@ public class TabGenerator {
         return tuningTypes.replaceAll("\n$", "");
     }
 
-    public List<List<String>> generateTab(List<String> chordTones, int tuningTypeNum) {
+    public List<List<String>> generateTab(String chordName, List<String> chordTones, int tuningTypeNum) {
         String root = chordTones.getFirst();
         List<String> openStringNotes = getOpenStringNotes(tuningTypeNum);
         List<List<List<String>>> fretBoard = generateFretBoard(openStringNotes);
@@ -38,7 +38,7 @@ public class TabGenerator {
         List<List<List<Integer>>> validatedChordPositions = validatedCombinations(nonRedundantCombinations, chordTones, fretBoard);
         assignChordTonesInTabOrder(validatedChordPositions, fretBoard, chordTones);
         tabList = generateTabList(validatedChordPositions, chordTonesInTabOrder);
-        System.out.println("\n" + getTuningInformation(tuningTypeNum) + "\n코드 블록 사이즈 : " + SLIDING_WINDOW_SIZE + "프렛");
+        System.out.println("\n코드 : " + chordName + "\n" + getTuningInformation(tuningTypeNum) + "\n코드 블록 사이즈 : " + SLIDING_WINDOW_SIZE + "프렛");
         System.out.println("근음 위치 : " + STRING_COUNT + " ~ " + HIGHEST_ROOT_STRING + " 번 줄, 0 ~ " + HIGHEST_ROOT_FRET + "프렛");
         return tabList;
     }
