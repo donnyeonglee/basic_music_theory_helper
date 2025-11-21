@@ -3,11 +3,10 @@ package basic_music_theory_helper.view;
 import basic_music_theory_helper.model.ChordTonesFinder;
 import basic_music_theory_helper.model.IntervalCalculator;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class InputValidator {
-    static final int  MIN_FUNCTION_NUM = 0;
+    static final int MIN_FUNCTION_NUM = 0;
     static final int MAX_FUNCTION_NUM = 2;
     static final int MIN_TUNING_TYPE_NUM = 1;
     static final int MAX_TUNING_TYPE_NUM = 4;
@@ -32,8 +31,7 @@ public class InputValidator {
         while (true) {
             try {
                 IntervalCalculator intervalCalculator = new IntervalCalculator();
-                intervalCalculator.validatePitchNames(inputView.enterPitchNames());
-                return intervalCalculator.getPitchNames();
+                return intervalCalculator.validatePitchNames(inputView.enterPitchNames());
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
             }
@@ -44,8 +42,7 @@ public class InputValidator {
         while (true) {
             try {
                 ChordTonesFinder chordTonesFinder = new ChordTonesFinder();
-                chordTonesFinder.validateChordName(inputView.enterChordName());
-                return chordTonesFinder.getChordName();
+                return chordTonesFinder.validatedChordName(inputView.enterChordName());
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
             }

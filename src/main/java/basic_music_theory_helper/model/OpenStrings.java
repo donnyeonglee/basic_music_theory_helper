@@ -6,7 +6,7 @@ import java.util.List;
 public enum OpenStrings {
     STANDARD_TUNING(1, "Standard Tuning", "E-A-D-G-B-E", Arrays.asList("E", "A", "D", "G", "B", "E")),
     HALF_STEP_DOWN_TUNING(2, "Half-Step Down Tuning", "E♭-A♭-D♭-G♭-B♭-E♭", Arrays.asList("E♭", "A♭", "D♭", "G♭", "B♭", "E♭")),
-    DROP_D_TUNING(2, "Drop D Tuning", "D-A-D-G-B-E", Arrays.asList("D", "A", "D", "G", "B", "E")),
+    DROP_D_TUNING(3, "Drop D Tuning", "D-A-D-G-B-E", Arrays.asList("D", "A", "D", "G", "B", "E")),
     DROP_CSHARP_TUNING(4, "Drop C# Tuning", "C#-A♭-D♭-G♭-B♭-E♭", Arrays.asList("C#", "A♭", "D♭", "G♭", "B♭", "E♭"));
 
     private final int tuningTypeNum;

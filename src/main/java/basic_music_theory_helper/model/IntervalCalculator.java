@@ -1,8 +1,5 @@
 package basic_music_theory_helper.model;
 
-import basic_music_theory_helper.view.OutputView;
-
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -11,17 +8,14 @@ public class IntervalCalculator {
     static final int HEPTATONIC_COUNT = 7;
     static final int HALF_TONE_COUNT = 12;
 
-    List<String> pitchNames = new ArrayList<String>();
-
-    OutputView outputView = new OutputView();
-
-    public void validatePitchNames(String inputPitchNames) {
+    public List<String> validatePitchNames(String inputPitchNames) {
         String separator = ",";
-        pitchNames = Arrays.asList(inputPitchNames.split(separator));
+        List<String> pitchNames = Arrays.asList(inputPitchNames.split(separator));
         validateInputCount(pitchNames);
         for (String pitchName : pitchNames) {
             validateSinglePitchName(pitchName.trim());
         }
+        return pitchNames;
     }
 
     public String calculate(List<String> inputPitchNames) {
@@ -35,7 +29,6 @@ public class IntervalCalculator {
         if (halfToneDistance <= 0) {
             halfToneDistance += HALF_TONE_COUNT;
         }
-        //System.out.println(firstNote + "와 " + secondNote + "사이의 거리는 " + degree + "도, 반음거리는 " + halfToneDistance); // 테스트 출력
         return findInterval(degree, halfToneDistance);
     }
 
@@ -73,16 +66,11 @@ public class IntervalCalculator {
 
     private String findInterval(int degree, int halfToneDistance) {
         Interval[] intervals = Interval.values();
-        //System.out.println("degree : " + degree + " halfToneDistance : " + halfToneDistance); // 테스트 출력
         for (Interval interval : intervals) {
             if (degree == interval.getDegree() && halfToneDistance == interval.getHalfToneDistance()) {
                 return interval.getKoreanIntervalName();
             }
         }
         throw new RuntimeException("[ERROR] 음정 계산 오류");
-    }
-
-    public List<String> getPitchNames() {
-        return pitchNames;
     }
 }

@@ -35,8 +35,7 @@ public class OutputView {
     public void tabGeneratorResult(List<List<String>> tabList) {
         int chordFormCount = tabList.size();
         int chunks = (int) Math.ceil((double) chordFormCount / TAB_COUNT_PER_LINE);
-        // System.out.println("코드폼 개수 : " + chordFormCount + " chunk 수 : " + chunks); // 테스트 출력
-        for (int i = 0; i < chunks; i ++) {
+        for (int i = 0; i < chunks; i++) {
             int start = i * TAB_COUNT_PER_LINE;
             int end = (i + 1) * TAB_COUNT_PER_LINE;
             if (end > chordFormCount) {
@@ -45,7 +44,6 @@ public class OutputView {
             List<List<String>> chunkedTabList = tabList.subList(start, end);
             printChunkedTabList(chunkedTabList);
         }
-
     }
 
     private void printChunkedTabList(List<List<String>> chunkedTabList) {
