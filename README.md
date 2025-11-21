@@ -37,9 +37,9 @@
 - 타브 출력 여부를 'Y' 혹은 'N'을 입력해 결정
 - 기타 튜닝 유형을 번호를 선택해 지정
 - 예시 출력 (F 코드 standard tuning. 이외에도 가능한 모든 위치를 출력)
->튜닝 : Standard Tuning (E-A-D-G-B-E)
->코드 블록 사이즈 : 5프렛
->근음 위치 : 6 ~ 3 번 줄, 0 ~ 12프렛
+>튜닝 : Standard Tuning (E-A-D-G-B-E)     
+>코드 블록 사이즈 : 5프렛     
+>근음 위치 : 6 ~ 3 번 줄, 0 ~ 12프렛     
 >F |---1---|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;F |---1---|     
 >C |---1---|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C |---1---|     
 >A |---2---|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A |---2---|     
