@@ -19,6 +19,7 @@ public class InputView {
             근음은 알파벳(A-G) + 조표(♯ or ♭, 선택 사항) 으로 나타내주세요.""";
     static final String PROMPT_TAB = "\n타브를 출력하시겠습니까? (Y/N)";
     static final String PROMPT_TUNING_TYPE = "\n다음 중 튜닝 유형에 해당하는 번호를 입력해주세요.";
+    static final String PROMPT_EXIT_PROGRAM = "\n엔터를 입력하면 프로그램이 종료됩니다.";
 
     Scanner scanner = new Scanner(System.in);
 
@@ -49,5 +50,10 @@ public class InputView {
         System.out.println(PROMPT_TUNING_TYPE);
         System.out.println(tabGenerator.showTuningTypes());
         return scanner.nextLine();
+    }
+
+    public void exitProgram() {
+        System.out.println(PROMPT_EXIT_PROGRAM);
+        scanner.nextLine();
     }
 }

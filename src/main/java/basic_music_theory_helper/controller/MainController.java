@@ -4,15 +4,15 @@ import basic_music_theory_helper.model.ChordTonesFinder;
 import basic_music_theory_helper.model.IntervalCalculator;
 import basic_music_theory_helper.model.TabGenerator;
 import basic_music_theory_helper.view.InputValidator;
+import basic_music_theory_helper.view.InputView;
 import basic_music_theory_helper.view.OutputView;
 
 import java.util.List;
-import java.util.Scanner;
 
 public class MainController {
     InputValidator inputValidator = new InputValidator();
     OutputView outputView = new OutputView();
-    Scanner scanner = new Scanner(System.in);
+    InputView inputView = new InputView();
 
     public MainController() {
         int functionNum = inputValidator.validatedFunctionNum();
@@ -25,7 +25,7 @@ public class MainController {
         if (functionNum == 2) {
             runChordTonesFinder();
         }
-        scanner.nextLine();
+        inputView.exitProgram();
     }
 
     private int reEnteredFunctionNum() {
