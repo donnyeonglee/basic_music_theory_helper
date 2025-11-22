@@ -9,26 +9,28 @@ public class ChordTonesFinder {
     static final int HALF_TONE_COUNT = 12;
 
     public String exampleNames() { // 예시 코드명 생성
-        String exampleChordNames = "";
+        String exampleChordNames = "\n======================= 코드 이름 예시 (근음 : C) =======================";
         String type = "";
+        String indent = "        ";
         Chord[] chords = Chord.values();
         for (Chord chord : chords) {
             if (!type.equals(chord.getType())) {
-                exampleChordNames = exampleChordNames + "\n===== " + chord.getType() + " =====\n";
+                exampleChordNames = exampleChordNames + "\n" + indent + "=== " + chord.getType() + " ===\n";
             }
             type = chord.getType();
-            exampleChordNames = exampleChordNames +
+            exampleChordNames = exampleChordNames + indent + "- " +
                     chord.getChordName() + " :" + generateChordNames(chord.getSuffixList()) + "\n";
         }
-        return exampleChordNames.replaceAll("\n$", "");
+        return exampleChordNames.replaceAll("\n$", "") + "\n=================================================================";
     }
 
     public String validatedChordName(String inputChordName) { // 올바른 코드명 입력인지 검증
         String inputChordSuffix = inputChordName.trim().replaceAll("^[A-G]{1}+[#♭]?", "");
+        String root = inputChordName.replace(inputChordSuffix, "");
         Chord[] chords = Chord.values();
         for (Chord chord : chords) {
             List<String> suffixList = chord.getSuffixList();
-            if (suffixList.contains(inputChordSuffix)) {
+            if (suffixList.contains(inputChordSuffix) && !root.isEmpty()) {
                 return inputChordName.trim();
             }
         }
