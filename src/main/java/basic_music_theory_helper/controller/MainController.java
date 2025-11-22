@@ -54,8 +54,6 @@ public class MainController {
             int tuningTypeNum = inputValidator.validatedTuningType();
             List<List<String>> tabList = tabGenerator.generateTab(chordName, chordTones, tuningTypeNum);
             outputView.tabGeneratorResult(tabList);
-            return;
         }
-        System.out.println("\n프로그램을 종료합니다.");
     }
 }
