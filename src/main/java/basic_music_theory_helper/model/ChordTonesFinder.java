@@ -25,6 +25,12 @@ public class ChordTonesFinder {
     }
 
     public String validatedChordName(String inputChordName) { // 올바른 코드명 입력인지 검증
+        if (inputChordName.trim().equals("b")) {
+            return "back";
+        }
+        if (inputChordName.trim().equals("e")) {
+            return "showExample";
+        }
         String inputChordSuffix = inputChordName.trim().replaceAll("^[A-G]{1}+[#b]?", "");
         String root = inputChordName.replace(inputChordSuffix, "");
         Chord[] chords = Chord.values();

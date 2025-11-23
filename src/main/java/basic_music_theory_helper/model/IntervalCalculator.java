@@ -10,6 +10,9 @@ public class IntervalCalculator {
     static final int HALF_TONE_COUNT = 12;
 
     public List<String> validatePitchNames(String inputPitchNames) {
+        if (inputPitchNames.trim().equals("b")) {
+            return Arrays.asList("back");
+        }
         List<String> validatedPitchNames = new ArrayList<>();
         String separator = ",";
         List<String> pitchNames = Arrays.asList(inputPitchNames.split(separator));

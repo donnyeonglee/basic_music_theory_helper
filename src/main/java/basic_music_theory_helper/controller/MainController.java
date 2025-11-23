@@ -7,25 +7,34 @@ import basic_music_theory_helper.view.InputValidator;
 import basic_music_theory_helper.view.InputView;
 import basic_music_theory_helper.view.OutputView;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class MainController {
     InputValidator inputValidator = new InputValidator();
     OutputView outputView = new OutputView();
     InputView inputView = new InputView();
+    private boolean runComplete;
 
     public MainController() {
-        int functionNum = inputValidator.validatedFunctionNum();
-        if (functionNum == 0) {
-            functionNum = reEnteredFunctionNum();
+        boolean running = true;
+        while (running) {
+            runComplete = false;
+            int functionNum = inputValidator.validatedFunctionNum();
+            if (functionNum == 0) {
+                functionNum = reEnteredFunctionNum();
+            }
+            if (functionNum == 1) {
+                runIntervalCalculator();
+            }
+            if (functionNum == 2) {
+                runChordTonesFinder();
+            }
+            if (runComplete) {
+                running = inputView.restartOrExit();
+                System.out.println();
+            }
         }
-        if (functionNum == 1) {
-            runIntervalCalculator();
-        }
-        if (functionNum == 2) {
-            runChordTonesFinder();
-        }
-        inputView.exitOrRestart();
     }
 
     private int reEnteredFunctionNum() {
@@ -39,15 +48,32 @@ public class MainController {
 
     private void runIntervalCalculator() {
         IntervalCalculator intervalCalculator = new IntervalCalculator();
-        List<String> interval = intervalCalculator.calculate(inputValidator.validatedPitchNames());
+        List<String> pitchNames = inputValidator.validatedPitchNames();
+        if (pitchNames.equals(Arrays.asList("back"))) {
+            System.out.println();
+            return;
+        }
+        List<String> interval = intervalCalculator.calculate(pitchNames);
         outputView.intervalCalculatorResult(interval);
+        runComplete = true;
     }
 
     private void runChordTonesFinder() {
         ChordTonesFinder chordTonesFinder = new ChordTonesFinder();
         String chordName = inputValidator.validatedChordName();
+        while (chordName.equals("back") || chordName.equals("showExample")) {
+            if (chordName.equals("back")) {
+                System.out.println();
+                return;
+            }
+            if (chordName.equals("showExample")) {
+                System.out.println(chordTonesFinder.exampleNames());
+                chordName = inputValidator.validatedChordName();
+            }
+        }
         List<List<String>> intervalNameAndChordTones = chordTonesFinder.findChordTonesFromName(chordName);
         outputView.chordTonesFinderResult(intervalNameAndChordTones);
+        runComplete = true;
         if (inputValidator.validateWhetherPrintTab().equals("Y")) {
             TabGenerator tabGenerator = new TabGenerator();
             List<String> chordTones = intervalNameAndChordTones.get(1);

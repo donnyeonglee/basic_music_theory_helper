@@ -1,6 +1,7 @@
 package basic_music_theory_helper.view;
 
 import basic_music_theory_helper.Application;
+import basic_music_theory_helper.controller.MainController;
 import basic_music_theory_helper.model.ChordTonesFinder;
 import basic_music_theory_helper.model.TabGenerator;
 
@@ -27,9 +28,8 @@ public class InputView {
     static final String PROMPT_EXIT_OR_RESTART_PROGRAM = """
             
             실행이 완료되었습니다.
-                                                                  [재시작: r]
-                                                                [종료: Enter]
-            """;
+                                                                [다시 시작: r]
+                                                                [종료: Enter]""";
 
     Scanner scanner = new Scanner(System.in);
 
@@ -41,10 +41,6 @@ public class InputView {
     public String enterPitchNames() {
         System.out.println(PROMPT_INTERVAL_CALCULATOR);
         String inputPitchName = scanner.nextLine().trim();
-        if (inputPitchName.equals("b")) { // 뒤로 가기
-            System.out.println();
-            Application.main(new String[]{});
-        }
         return inputPitchName;
     }
 
@@ -52,14 +48,6 @@ public class InputView {
         ChordTonesFinder chordTonesFinder = new ChordTonesFinder();
         System.out.println(PROMPT_CHORD_TONES_FINDER);
         String inputChordName = scanner.nextLine().trim();
-        if (inputChordName.equals("b")) { // 뒤로 가기
-            System.out.println();
-            Application.main(new String[]{});
-        }
-        if (inputChordName.equals("e")) { // 예시 출력
-            System.out.println(chordTonesFinder.exampleNames());
-            inputChordName = enterChordName();
-        }
         return inputChordName;
     }
 
@@ -75,12 +63,12 @@ public class InputView {
         return scanner.nextLine();
     }
 
-    public void exitOrRestart() {
+    public boolean restartOrExit() {
         System.out.println(PROMPT_EXIT_OR_RESTART_PROGRAM);
         String inputKey = scanner.nextLine().trim();
-        if (inputKey.equals("r")) { // 재시작
-            System.out.println();
-            Application.main(new String[]{});
+        if (inputKey.equals("r")) { // 다시 시작
+            return true;
         }
+        return false;
     }
 }
