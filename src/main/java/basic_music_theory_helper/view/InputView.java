@@ -7,21 +7,29 @@ import basic_music_theory_helper.model.TabGenerator;
 import java.util.Scanner;
 
 public class InputView {
-    static final String PROMPT_CHOOSE_FUNCTION = "\n다음 중 원하는 기능의 번호를 입력해주세요.\n0: 도움말\n1: 음정 계산기\n2: 코드 구성음 찾기";
-    static final String PROMPT_INTERVAL_CALCULATOR =
-            "\n===== 음정 계산기 =====\n" +
-                    "두 개 음을 콤마(,)로 구분하여 입력해주세요.\n첫 번째 음이 기준음입니다.\n" +
-                    "음은 알파벳(A-G) + 조표(# or ♭, 선택 사항) 으로 나타내주세요. (ex. A#,E♭)\n뒤로가기 : b";
+    static final String PROMPT_CHOOSE_FUNCTION = "다음 중 원하는 기능의 번호를 입력해주세요.\n0: 도움말\n1: 음정 계산기\n2: 코드 구성음 찾기";
+    static final String PROMPT_INTERVAL_CALCULATOR = """
+            
+            ==== 음정 계산기 =====
+            두 개 음을 콤마(,)로 구분하여 입력해주세요.
+            첫 번째 음이 기준음입니다.
+            음은 알파벳(A-G) + 조표(# or b, 선택 사항) 으로 나타내주세요. (ex. A#,Eb)
+                                                                 [뒤로 가기 : b]""";
     static final String PROMPT_CHORD_TONES_FINDER = """
             
             ===== 코드 구성음 찾기 =====
-            코드 이름을 입력해주세요. (코드 이름 예시: e 입력)
-            근음은 알파벳(A-G) + 조표(# or ♭, 선택 사항) 으로 나타내주세요. (ex A#m7)
-            
-            뒤로가기 : b""";
+            예시를 참고하여 코드 이름을 입력해주세요.
+            근음은 알파벳(A-G) + 조표(# or b, 선택 사항) 으로 나타내주세요. (ex A#m7)
+                                                                 [코드 예시 : e]
+                                                                 [뒤로 가기 : b]""";
     static final String PROMPT_TAB = "\n타브를 출력하시겠습니까? (Y/N)";
     static final String PROMPT_TUNING_TYPE = "\n다음 중 튜닝 유형에 해당하는 번호를 입력해주세요.";
-    static final String PROMPT_EXIT_PROGRAM = "\n엔터를 누르면 프로그램이 종료됩니다.";
+    static final String PROMPT_EXIT_OR_RESTART_PROGRAM = """
+            
+            실행이 완료되었습니다.
+                                                                 [재시작 : r]
+                                                               [종료 : Enter]
+            """;
 
     Scanner scanner = new Scanner(System.in);
 
@@ -32,8 +40,9 @@ public class InputView {
 
     public String enterPitchNames() {
         System.out.println(PROMPT_INTERVAL_CALCULATOR);
-        String inputPitchName = scanner.nextLine();
+        String inputPitchName = scanner.nextLine().trim();
         if (inputPitchName.equals("b")) { // 뒤로 가기
+            System.out.println();
             Application.main(new String[]{});
         }
         return inputPitchName;
@@ -42,9 +51,9 @@ public class InputView {
     public String enterChordName() {
         ChordTonesFinder chordTonesFinder = new ChordTonesFinder();
         System.out.println(PROMPT_CHORD_TONES_FINDER);
-        //System.out.println(chordTonesFinder.exampleNames());
-        String inputChordName = scanner.nextLine();
+        String inputChordName = scanner.nextLine().trim();
         if (inputChordName.equals("b")) { // 뒤로 가기
+            System.out.println();
             Application.main(new String[]{});
         }
         if (inputChordName.equals("e")) { // 예시 출력
@@ -66,8 +75,12 @@ public class InputView {
         return scanner.nextLine();
     }
 
-    public void exitProgram() {
-        System.out.println(PROMPT_EXIT_PROGRAM);
-        scanner.nextLine();
+    public void exitOrRestart() {
+        System.out.println(PROMPT_EXIT_OR_RESTART_PROGRAM);
+        String inputKey = scanner.nextLine().trim();
+        if (inputKey.equals("r")) { // 재시작
+            System.out.println();
+            Application.main(new String[]{});
+        }
     }
 }

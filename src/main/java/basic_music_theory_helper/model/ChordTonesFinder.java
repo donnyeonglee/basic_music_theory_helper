@@ -25,7 +25,7 @@ public class ChordTonesFinder {
     }
 
     public String validatedChordName(String inputChordName) { // 올바른 코드명 입력인지 검증
-        String inputChordSuffix = inputChordName.trim().replaceAll("^[A-G]{1}+[#♭]?", "");
+        String inputChordSuffix = inputChordName.trim().replaceAll("^[A-G]{1}+[#b]?", "");
         String root = inputChordName.replace(inputChordSuffix, "");
         Chord[] chords = Chord.values();
         for (Chord chord : chords) {
@@ -38,8 +38,8 @@ public class ChordTonesFinder {
     }
 
     public List<List<String>> findChordTonesFromName(String validatedInputChordName) { // 코드명에서 구성음 찾기
-        String suffix = validatedInputChordName.replaceAll("^[A-G]{1}+[#♭]?", "");
-        String root = validatedInputChordName.replace(suffix, "");
+        String suffix = validatedInputChordName.replaceAll("^[A-G]{1}+[#b]?", "");
+        String root = validatedInputChordName.replace(suffix, "").replace('b', '♭');
         return findChordTonesFromRootAndSuffix(root, suffix);
     }
 
@@ -130,12 +130,11 @@ public class ChordTonesFinder {
     }
 
     private String getChordIntervalNote(String root, List<String> enharmonicChordTone, String intervalName) {
-        String intervalNameForEachNote = "";
         IntervalCalculator intervalCalculator = new IntervalCalculator();
         for (String note : enharmonicChordTone) {
             List<String> noteNames = Arrays.asList(root, note);
-            intervalNameForEachNote = intervalCalculator.calculate(noteNames);
-            if (intervalNameForEachNote.equals(intervalName)) {
+            List<String> intervalNameForEachNote = intervalCalculator.calculate(noteNames);
+            if (intervalNameForEachNote.contains(intervalName)) {
                 return note;
             }
         }
@@ -145,7 +144,7 @@ public class ChordTonesFinder {
     private String getAllNotes(List<String> enharmonicChordTone) {
         String allNotes = "";
         for (String note : enharmonicChordTone) {
-            allNotes += allNotes + note + "=";
+            allNotes = allNotes + note + "=";
         }
         return allNotes.replaceAll("=$", "");
     }

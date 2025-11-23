@@ -25,7 +25,7 @@ public class MainController {
         if (functionNum == 2) {
             runChordTonesFinder();
         }
-        inputView.exitProgram();
+        inputView.exitOrRestart();
     }
 
     private int reEnteredFunctionNum() {
@@ -39,7 +39,7 @@ public class MainController {
 
     private void runIntervalCalculator() {
         IntervalCalculator intervalCalculator = new IntervalCalculator();
-        String interval = intervalCalculator.calculate(inputValidator.validatedPitchNames());
+        List<String> interval = intervalCalculator.calculate(inputValidator.validatedPitchNames());
         outputView.intervalCalculatorResult(interval);
     }
 
