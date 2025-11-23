@@ -1,5 +1,20 @@
 # 기초 음악 이론 도우미 (Basic music theory helper)
 
+음정 계산, 코드 구성음을 찾는 등 기초 음악 이론 학습을 돕는 프로그램입니다.
+입력한 코드의 기타 악보(타브)를 제공하며, 변칙 튜닝 설정도 가능하므로 기타 연주자에게 더욱 유용합니다.
+
+---
+
+## 프로그램 실행
+
+### 1. Windows에서 실행
+1. zip 파일 (basic_music_theory_helper_[version].zip 다운로드 및 압축 해제
+2. run.exe 실행
+
+### 2. 터미널에서 실행 (Java 21 버전 필요)
+1. zip 파일 (basic_music_theory_helper_[version].zip 다운로드 및 압축 해제
+2. java -jar main.jar 입력
+
 ---
 
 ## 기능 요구 사항
