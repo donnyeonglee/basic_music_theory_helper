@@ -39,8 +39,8 @@ public class TabGenerator {
         List<List<List<Integer>>> validatedChordPositions = validatedCombinations(nonRedundantCombinations, chordTones, fretBoard);
         assignChordTonesInTabOrder(validatedChordPositions, fretBoard, chordTones);
         tabList = generateTabList(validatedChordPositions, chordTonesInTabOrder);
-        System.out.println("\n코드 : " + chordName.replace('b', '♭') + "\n" + getTuningInformation(tuningTypeNum) + "\n코드 블록 사이즈 : " + SLIDING_WINDOW_SIZE + "프렛");
-        System.out.println("근음 위치 : " + STRING_COUNT + " ~ " + HIGHEST_ROOT_STRING + " 번 줄, 0 ~ " + HIGHEST_ROOT_FRET + "프렛");
+        System.out.println("\n코드: " + chordName.replace('b', '♭') + "\n" + getTuningInformation(tuningTypeNum) + "\n코드 블록 사이즈: " + SLIDING_WINDOW_SIZE + "프렛");
+        System.out.println("근음 위치: " + STRING_COUNT + "~" + HIGHEST_ROOT_STRING + "번 줄, 0~" + HIGHEST_ROOT_FRET + "프렛");
         return tabList;
     }
 
@@ -288,6 +288,6 @@ public class TabGenerator {
                 tuningForm = openString.getTuningForm();
             }
         }
-        return ("튜닝 : " + tuningName + " (" + tuningForm + ")");
+        return ("튜닝: " + tuningName + " (" + tuningForm + ")");
     }
 }

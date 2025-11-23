@@ -4,12 +4,14 @@ import java.util.List;
 
 public class OutputView {
 
+    private final String VERSION = "v0.0.0";
     private final String HELP_MESSAGE =
-            "\n======== 기초 음악 이론 도우미 (Basic music theory helper) ========\n\n" +
-                    "다음의 기능 중 하나를 선택해 사용하실 수 있습니다.\n\n" +
+            "\n======== 기초 음악 이론 도우미 (Basic music theory helper) ========\n" +
+                    "개발자: 이돈녕\n" +
+                    "버전: " + VERSION +
+                    "\n\n다음의 기능 중 하나를 선택해 사용하실 수 있습니다.\n\n" +
                     "1. 음정 계산기: 두 개의 음 이름을 입력하면 두 음 사이의 거리를 출력합니다.\n" +
-                    "2. 코드 구성음 찾기: 코드 이름을 입력하면 코드의 구성음을 출력합니다.\n\n" +
-                    "                                                   개발자: 이돈녕\n" +
+                    "2. 코드 구성음 찾기: 코드 이름을 입력하면 코드의 구성음을 출력합니다.\n" +
                     "================================================================\n";
     private final int STRING_COUNT = 6;
     private final int TAB_COUNT_PER_LINE = 15;
@@ -29,7 +31,7 @@ public class OutputView {
         for (int num = 0; num < intervalNames.size(); num++) {
             String intervalName = intervalNames.get(num);
             String chordTone = chordTones.get(num);
-            System.out.println(intervalName + " : " + chordTone);
+            System.out.println(intervalName + ": " + chordTone);
         }
     }
 

@@ -9,7 +9,7 @@ public class ChordTonesFinder {
     static final int HALF_TONE_COUNT = 12;
 
     public String exampleNames() { // 예시 코드명 생성
-        String exampleChordNames = "\n======================= 코드 이름 예시 (근음 : C) =======================";
+        String exampleChordNames = "\n======================= 코드 이름 예시 (근음: C) =======================";
         String type = "";
         String indent = "        ";
         Chord[] chords = Chord.values();
@@ -19,9 +19,9 @@ public class ChordTonesFinder {
             }
             type = chord.getType();
             exampleChordNames = exampleChordNames + indent + "- " +
-                    chord.getChordName() + " :" + generateChordNames(chord.getSuffixList()) + "\n";
+                    chord.getChordName() + ":" + generateChordNames(chord.getSuffixList()) + "\n";
         }
-        return exampleChordNames.replaceAll("\n$", "") + "\n=================================================================";
+        return exampleChordNames.replaceAll("\n$", "") + "\n================================================================";
     }
 
     public String validatedChordName(String inputChordName) { // 올바른 코드명 입력인지 검증
