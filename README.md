@@ -60,7 +60,7 @@
 >코드: F     
 >튜닝: Standard Tuning (E-A-D-G-B-E)     
 >코드 블록 사이즈: 5프렛     
->근음 위치: 6~3번 줄, 0~12프렛     
+>근음 위치: '6~3번 줄, 0~12프렛'     
 >F |---1---|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;F |---1---|     
 >C |---1---|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C |---1---|     
 >A |---2---|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A |---2---|     
