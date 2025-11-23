@@ -1,19 +1,22 @@
 # 기초 음악 이론 도우미 (Basic music theory helper)
 
-음정 계산, 코드 구성음을 찾는 등 기초 음악 이론 학습을 돕는 프로그램입니다.     
-입력한 코드의 기타 악보(타브) 출력, 변칙 튜닝 설정 등 기타 연주자에게 유용한 기능을 제공합니다.     
+- 음정 계산, 코드 구성음을 찾는 등 기초 음악 이론 학습을 돕는 프로그램입니다.     
+- 입력한 코드의 기타 악보(타브) 출력, 변칙 튜닝 설정 등 기타 연주자에게 유용한 기능을 제공합니다.     
 
 ---
 
 ## 프로그램 실행
 
 ### 1. Windows에서 실행
-1. zip 파일 (basic_music_theory_helper_[version].zip 다운로드 및 압축 해제
-2. run.exe 실행
+1. zip 파일 (basic_music_theory_helper_[version].zip 다운로드
+2. 압축 해제
+3. run.exe 실행
 
 ### 2. 터미널에서 실행 (Java 21 필요)
-1. zip 파일 (basic_music_theory_helper_[version].zip 다운로드 및 압축 해제
-2. java -jar main.jar 입력하여 실행
+1. zip 파일 (basic_music_theory_helper_[version].zip 다운로드
+2. 압축 해제
+3. 터미널에서 해당 디렉토리로 이동 후 실행
+```java -jar main.jar```
 
 ---
 
@@ -96,7 +99,7 @@
 - 코드명은 ASCII 문자를 이용하고 혼동을 주지 않는 선에서 최대한 다양한 표기를 적용함
 - 코드명은 다음 링크를 참고 
   - [Chord notation - WIKIPEDIA](https://en.wikipedia.org/wiki/Chord_notation)
-- "코드의 종류 (근음이 C인 경우 예시)" 는 다음과 같음     
+- 코드 이름 예시는 다음과 같음     
 ```
 ======================= 코드 이름 예시 (근음: C) =======================     
         === 3화음 ===     
