@@ -8,14 +8,14 @@
 ## 프로그램 실행
 
 ### 1. Windows에서 실행
-1. zip 파일 (basic_music_theory_helper_[version].zip 다운로드
+1. zip 파일 (basic_music_theory_helper_[version].zip) 다운로드
 2. 압축 해제
 3. run.exe 실행
 
 ### 2. 터미널에서 실행 (Java 21 필요)
-1. zip 파일 (basic_music_theory_helper_[version].zip 다운로드
+1. zip 파일 (basic_music_theory_helper_[version].zip) 다운로드
 2. 압축 해제
-3. 터미널에서 해당 디렉토리로 이동 후 실행
+3. 터미널에서 해당 디렉토리로 이동 후 실행     
 ```java -jar main.jar```
 
 ---
