@@ -23,7 +23,7 @@ public class InputView {
             근음은 알파벳(A-G) + 조표(# or b, 선택 사항) 으로 나타내주세요. (ex A#m7)
                                                                   [코드 예시: e]
                                                                   [뒤로 가기: b]""";
-    static final String PROMPT_TAB = "\n타브를 출력하시겠습니까? (Y/N)";
+    static final String PROMPT_TAB = "\n타브를 출력하시겠습니까? (y/n)";
     static final String PROMPT_TUNING_TYPE = "\n다음 중 튜닝 유형에 해당하는 번호를 입력해주세요.";
     static final String PROMPT_EXIT_OR_RESTART_PROGRAM = """
             
@@ -53,7 +53,7 @@ public class InputView {
 
     public String enterWhetherPrintTab() {
         System.out.println(PROMPT_TAB);
-        return scanner.nextLine();
+        return scanner.nextLine().trim();
     }
 
     public String enterTuningType() {
@@ -66,7 +66,7 @@ public class InputView {
     public boolean restartOrExit() {
         System.out.println(PROMPT_EXIT_OR_RESTART_PROGRAM);
         String inputKey = scanner.nextLine().trim();
-        if (inputKey.equals("r")) { // 다시 시작
+        if (inputKey.equals("r") || inputKey.equals("R")) { // 다시 시작
             return true;
         }
         return false;

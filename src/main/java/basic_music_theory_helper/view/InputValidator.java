@@ -89,12 +89,12 @@ public class InputValidator {
     }
 
     private String checkYesOrNo(String sign) {
-        if (sign.equals("Y")) {
+        if (sign.equals("y") || sign.equals("Y")) {
             return "Y";
         }
-        if (sign.equals("N")) {
+        if (sign.equals("n") || sign.equals("N")) {
             return "N";
         }
-        throw new IllegalArgumentException("[ERROR] Y 또는 N을 입결해 주세요.\n");
+        throw new IllegalArgumentException("[ERROR] y 또는 n을 입력해 주세요.\n");
     }
 }
